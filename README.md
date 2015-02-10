@@ -18,10 +18,14 @@ bundle install
 extractor = TeradataExtractor::Query.new("server_name", "user", "password")
 
 #ruby Enumerator
-enum = extractor.to_enumerable("select name, id, email_address, favorite_liquor from td.people_stuff")
+enum = extractor.to_enumerable("select Top 2 name, id, email_address, favorite_liquor from td.people_stuff")
 => #<Enumerator: #<JRuby::Generator::Threaded:...>
+enum.to_a
+=> [{:name => "Steve", :id => 111, :email_address => "thestevemitchell@gmail.com", :favorite_liquor => "ALL"},
+{:name => "Jerry", :id => 231, :email_address => "Jerry@jerrinson.com", :favorite_liquor => "none"}]
+#You get the idea...it's a ruby Enumberable
 
-#ruby StringIO in CSV format (take a look at postgres_upsert)
+#ruby String in CSV format (take a look at postgres_upsert)
 csv = extractor.to_enumerable("select Top 2 name, id, email_address, favorite_liquor from td.people_stuff")
 => "name,id,email_address,favorite_liquor\nSteve,111,thestevemitchell@gmail.com,ALL\nJerry,231,Jerry@jerrinson.com,none\n"
 ```
@@ -31,6 +35,7 @@ csv = extractor.to_enumerable("select Top 2 name, id, email_address, favorite_li
 * Fork the project
 * add your feature/fix to your fork(rpsec tests pleaze)
 * submit a PR
+* Do something nice for a stranger
 * If you find an issue but can't fix in in a PR, please log an issue.  I'll do my best.
 
 
