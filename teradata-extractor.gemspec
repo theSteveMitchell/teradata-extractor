@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name = 'teradata-extractor'
-  gem.version = '0.0.1'
+  gem.version = '0.0.2'
   gem.date = Date.today.to_s
   gem.authors = "Steve Mitchell"
   gem.description = "Get your data from Teradata AND GET TO THE CHOPPER!"
@@ -13,5 +13,6 @@ Gem::Specification.new do |gem|
 
   gem.platform = 'java'
   gem.add_runtime_dependency 'jdbc-teradata'
-
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'pry'
 end
