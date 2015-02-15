@@ -3,15 +3,13 @@ require 'csv'
 module TeradataExtractor
   class Query
   
-    # @param [com.teradata.jdbc.jdk6.JDK6_SQL_Connection] Teradata connection
-    # @param [#to_s] sql Sql query to execute
     def initialize(server_name, username, password)
       @connection = TeradataExtractor::Connection.instance.connection(server_name, username, password)
       @statement ||= @connection.create_statement
     end
 
     # returns an enumerable, each element of which is a hash in the format {column1: value1, column2: value2}
-    def enumerable(sql)
+    def enumerable(sql, fetch_size = 1000)
       results = @statement.execute_query(sql)
 
       Enumerator.new do |y|
@@ -30,18 +28,24 @@ module TeradataExtractor
     # returns an array of column names, and an enumberator, 
     # each item of the enumerator contains a single StringIO object, the value
     # of which is a CSV string containing [step] rows.
-    def csv_sting_io(sql, step=1000)
+    def csv_string_io(sql, fetch_size = 1000)
       results = @statement.execute_query(sql)
-      #results = conn.execute_query("select TOP 10 country_id, sf_account_id, country_name from emea_analytics.eu_deal_flat")
+      results.set_fetch_size(fetch_size)
+
       column_count = results.get_meta_data.get_column_count
       headers = 1.upto(column_count).map{|i| results.get_meta_data.get_column_name(i)}
 
       enum = Enumerator.new do |y|
-        loop do
+        finished = false
+        while(!finished) do
           rows = []
           csv_string = CSV.generate do |csv|
-            step.times do
-              results.next
+
+            fetch_size.times do
+              unless results.next
+                finished = true
+                break
+              end
               values = 1.upto(column_count).map{|i| to_ruby_type(results.get_object(i)) }
               csv << values
             end
@@ -57,7 +61,7 @@ module TeradataExtractor
 
     def to_ruby_type(java_object)
       if java_object.is_a?(Java::JavaMath::BigDecimal)
-        return java_object.to_string.to_i
+        return java_object.intValueExact rescue java_object.doubleValue
       elsif java_object.is_a?(Java::JavaSql::Date)
         return Date.parse(java_object.to_string)
       else
