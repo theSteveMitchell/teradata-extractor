@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name = 'teradata-extractor'
-  gem.version = '0.0.2'
+  gem.version = '1.0.0'
   gem.date = Date.today.to_s
   gem.authors = "Steve Mitchell"
   gem.description = "Get your data from Teradata AND GET TO THE CHOPPER!"
