@@ -55,9 +55,9 @@ end
 ## Note on Patches/Pull Requests
 
 * Fork the project
-* add your feature/fix to your fork(rpsec tests pleaze)
+* add your feature/fix to your fork(specs please)
 * submit a PR
-* Do something nice for a stranger
+* Lay back and bask in the karma you've earned.  
 * If you find an issue but can't fix in in a PR, please log an issue.  I'll do my best.
 
 
