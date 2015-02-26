@@ -3,6 +3,8 @@ Get your data from Teradata AND GET OUTTA THERE!
 
 A beautifully thin wrapper around the jdbc-teradata driver that encapsulates the ugly java bits and gives you back a nice ruby enumerable thing.  Because you want to get out of Java Territory as soon as you can.
 
+Rather than dealing with java.sql.ResultSets that require awkward parsing and use of metadata, you can just deal with an enumerable hash array, or a CSV string. 
+
 # JRuby only, dawg
 Since connecting to Teradata from MRI ruby is not really a thing yet, this gem wraps jdbc-teradata, which of course only runs on JRuby.
 
