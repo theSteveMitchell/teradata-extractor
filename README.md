@@ -38,13 +38,14 @@ extractor = TeradataExtractor::Query.new("server_name", "user", "password")
 => Enumerator
 > rows.next
 => "Steve,111,thestevemitchell@gmail.com,ALL\nJerry,231,Jerry@jerrinson.com,none\n"
+> #Next returns MORE THAN ONE ROW in CSV format.  See note on fetch_size  
 ```
 
 ## Note on fetch_size
 
 Both #enumerator and #csv_string_io have an optional second parameter, "fetch_size".  When calling #enumerator, fetch_size is purely a performance concern.  The enumerator returned will still yeild only 1 row when iterated using enum.next.  Fetch size is an instruction to the Teradata resultSet object that tells it how many results it should fetch from the database at a time.
 
-When calling #csv_string_io, fetch_size is significant.  For convenience, #csv_string_io bundles rows into groups.  So each call to rows.next will yeild a StringIO representing 1000 rows by default.  If you like you can pass fetch_size of 1 to get a single row at a time.  But if you're using something like https://github.com/theSteveMitchell/postgres_upsert, getting rows in a group is much more efficient, and convenient.  You can just 
+When calling #csv_string_io, fetch_size is significant.  For convenience, #csv_string_io bundles rows into groups.  So each call to rows.next will yeild a StringIO representing 1000 rows by default.  If you like you can pass fetch_size of 1 to get a single row at a time.  But if you're using something like https://github.com/theSteveMitchell/postgres_upsert, getting rows in a group is much more efficient, and convenient.  You can just...
 
 ```ruby 
 extractor = TeradataExtractor::Query.new(server_name, user_name, password)
