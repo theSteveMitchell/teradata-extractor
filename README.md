@@ -1,9 +1,9 @@
-# teradata-extractor
+# Teradata-extractor
 Get your data from Teradata AND GET OUTTA THERE!
 
 A beautifully thin wrapper around the jdbc-teradata driver that encapsulates the ugly java bits and gives you back a nice ruby enumerable thing.  Because you want to get out of Java Territory as soon as you can.
 
-Rather than dealing with java.sql.ResultSets that require awkward parsing and use of metadata, you can just deal with an enumerable hash array, or a CSV string. 
+The JDBC::Teradata adapter helps to make connecting and querying Teradata pretty easy, but dealing with the results is still very Java-centric, as it returns a java.sql.ResultSet object (http://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html) Rather than dealing with the awkward parsing and use of metadata, we will just give you an enumerable hash array, or a CSV string. 
 
 # JRuby only, dawg
 Since connecting to Teradata from MRI ruby is not really a thing yet, this gem wraps jdbc-teradata, which of course only runs on JRuby.
@@ -54,6 +54,10 @@ enum.each do |csv_stringio|
   Person.pg_upsert(csv_stringio, {header: false, columns: headers})
 end
 ```
+
+## To-do's
+
+* support more robuest conversion from java sql datatypes to ruby objects.  Currently only Date and BigDecimal are handled, other data types like String and Integer are done implicitly.  
 
 ## Note on Patches/Pull Requests
 
