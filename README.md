@@ -57,7 +57,7 @@ end
 
 ## To-do's
 
-* support more robuest conversion from java sql datatypes to ruby objects.  Currently only Date and BigDecimal are handled, other data types like String and Integer are done implicitly.  
+* support more robust conversion from java sql datatypes to ruby objects.  Currently only Date and BigDecimal are handled, other data types like String and Integer are done implicitly.  
 
 ## Note on Patches/Pull Requests
 
