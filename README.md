@@ -32,8 +32,8 @@ extractor = TeradataExtractor::Query.new("server_name", "user", "password")
 
 > #ruby String in CSV format
 > headers, rows = extractor.csv_string_io("select Top 2 name, id, email_address, favorite_liquor from td.people_stuff")
-=> [[::name, :id, :email_address, :favorite_liquor],
- #<Enumerator: #<JRuby::Generator::Threaded:...>
+=> [[:name, :id, :email_address, :favorite_liquor],
+ <Enumerator: #<JRuby::Generator::Threaded:...>]
 > rows.class
 => Enumerator
 > rows.next
